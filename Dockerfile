@@ -1,6 +1,14 @@
-FROM node:alpine
+FROM node:18-alpine
+
 WORKDIR /app
-COPY package.json  .
+
+# Install dependencies first (cached layer)
+COPY package.json package-lock.json* ./
 RUN npm install
+
+# Copy source (Skaffold will sync changes later)
 COPY . .
-CMD [ "npm","run","dev" ]
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
