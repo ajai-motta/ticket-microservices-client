@@ -1,15 +1,29 @@
 "use client"
 import React,{useState} from 'react'
-
+import axios, { AxiosError } from 'axios';
 const Signup = () => {
      const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error,setError]=useState([])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
-    // TODO: call auth API
-  };
+    try {
+    const response = await axios.post('/api/users/signup', {
+      email,
+      password,
+    });
+
+    console.log(response.data);
+
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      console.log(err.response?.data); 
+      setError(err?.response?.data?.errors)
+    } else {
+      console.log('Unexpected error', err);
+    }
+  }}
   return (
    
 
@@ -30,7 +44,7 @@ const Signup = () => {
           </label>
           <input
             type="email"
-            required
+            
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
@@ -45,15 +59,16 @@ const Signup = () => {
           </label>
           <input
             type="password"
-            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-
-        {/* Button */}
+        <ul>{error.map((err,index)=>{
+          return <li key={index} className='text-red-500'>{err?.message}</li>
+        })}</ul>
+        
         <button
           type="submit"
           className="w-full rounded-lg bg-indigo-600 text-white py-2 font-medium hover:bg-indigo-700 transition"
