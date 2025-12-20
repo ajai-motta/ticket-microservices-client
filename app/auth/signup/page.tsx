@@ -1,41 +1,32 @@
-"use client"
-import React,{useState} from 'react'
-import axios, { AxiosError } from 'axios';
+"use client";
+import React, { useState } from "react";
+import useRequest from "../../../hooks/use-request";
+import { useRouter } from "next/navigation";
 const Signup = () => {
-     const [email, setEmail] = useState("");
+  const router = useRouter();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error,setError]=useState([])
-
-  const handleSubmit = async(e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-    const response = await axios.post('/api/users/signup', {
+  const { doRequest, errors } = useRequest({
+    url: "/api/users/signup",
+    method: "post",
+    body: {
       email,
       password,
-    });
+    },
+  });
 
-    console.log(response.data);
-
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      console.log(err.response?.data); 
-      setError(err?.response?.data?.errors)
-    } else {
-      console.log('Unexpected error', err);
-    }
-  }}
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    doRequest();
+    router.push('/')
+  };
   return (
-   
-
-  
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-sm bg-white p-6 rounded-2xl shadow-md"
       >
-        <h1 className="text-2xl font-semibold text-center mb-6">
-          Login
-        </h1>
+        <h1 className="text-2xl font-semibold text-center mb-6">Login</h1>
 
         {/* Email */}
         <div className="mb-4">
@@ -44,7 +35,6 @@ const Signup = () => {
           </label>
           <input
             type="email"
-            
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
@@ -65,10 +55,8 @@ const Signup = () => {
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-        <ul>{error.map((err,index)=>{
-          return <li key={index} className='text-red-500'>{err?.message}</li>
-        })}</ul>
-        
+        {errors}
+
         <button
           type="submit"
           className="w-full rounded-lg bg-indigo-600 text-white py-2 font-medium hover:bg-indigo-700 transition"
@@ -78,7 +66,6 @@ const Signup = () => {
       </form>
     </div>
   );
-  
-}
+};
 
-export default Signup
+export default Signup;
