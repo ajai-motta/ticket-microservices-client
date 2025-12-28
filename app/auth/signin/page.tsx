@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios";
+
 import useRequest from "../../../hooks/use-request";
 import { useRouter } from "next/navigation";
 const Signup = () => {
@@ -9,7 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { doRequest, errors } = useRequest({
-    url: "/api/users/signup",
+    url: "/api/users/signin",
     method: "post",
     body: {
       email,
@@ -42,7 +42,7 @@ const Signup = () => {
           </label>
           <input
             type="email"
-            value={email}
+            
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -56,7 +56,7 @@ const Signup = () => {
           </label>
           <input
             type="password"
-            value={password}
+           
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -68,7 +68,7 @@ const Signup = () => {
           type="submit"
           className="w-full rounded-lg bg-indigo-600 text-white py-2 font-medium hover:bg-indigo-700 transition"
         >
-          Sign up
+          Sign In
         </button>
       </form>
     </div>

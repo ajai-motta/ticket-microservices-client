@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /client
 
 # Install dependencies first (cached layer)
 COPY package.json package-lock.json* ./
