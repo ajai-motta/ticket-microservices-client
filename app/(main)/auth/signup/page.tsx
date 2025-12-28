@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import useRequest from "../../../hooks/use-request";
+import useRequest from "../../../../hooks/use-request";
 import { useRouter } from "next/navigation";
 const Signup = () => {
   
