@@ -4,6 +4,7 @@ import "./globals.css";
 import buildClient from '@/api/build-client';
 import {headers} from 'next/headers'
 import AuthProvider from '@/_lib/session-context'
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +34,9 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <h1>Header 1</h1>
+        
         <AuthProvider user={data}>
-
+        
         {children}
         </AuthProvider>
       </body>

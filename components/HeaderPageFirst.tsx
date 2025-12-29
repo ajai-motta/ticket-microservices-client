@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import {useAuth} from '@/_lib/session-context'
-export default function Header() {
+
+export default function Header(jwt) {
   console.log("above this//////////////1")
-  const { jwt, setJwt }=useAuth()
+  
   console.log("above this//////////////2")
   console.log(jwt,'second layout')
   
