@@ -6,7 +6,8 @@ export default function Header(jwt) {
   console.log("above this//////////////1")
   
   console.log("above this//////////////2")
-  console.log(jwt,'second layout')
+ 
+  console.log(jwt.jwt.currentUser,'first page header Header direct acces')
   
   return (
     <header className="border-b bg-white">
@@ -15,15 +16,15 @@ export default function Header(jwt) {
           Ticket Mystro
         </Link>
         
-        {!jwt?.currentUser?(<div className="flex gap-6">
-          <Link href="/dashboard" className="hover:text-blue-600">
+        {!jwt?.jwt?.currentUser?(<div className="flex gap-6">
+          <Link href="/auth/signin" className="hover:text-blue-600">
             SignIn
           </Link>
-          <Link href="/settings" className="hover:text-blue-600">
+          <Link href="/auth/signup" className="hover:text-blue-600">
             SignUP
           </Link>
         </div>): <div className="flex gap-6">
-          <Link href="/dashboard" className="hover:text-blue-600">
+          <Link href="/auth/signout" className="hover:text-blue-600">
             SignOut
           </Link>
          

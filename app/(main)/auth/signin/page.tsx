@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import useRequest from "../../../../hooks/use-request";
 import { useRouter } from "next/navigation";
-const Signup = () => {
+const Signin = () => {
   
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -75,4 +75,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signin;

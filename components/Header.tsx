@@ -7,6 +7,7 @@ export default function Header() {
   const { jwt, setJwt }=useAuth()
   console.log("above this//////////////2")
   console.log(jwt,'second layout')
+  console.log(!jwt?.currentUser,'second layout')
   
   return (
     <header className="border-b bg-white">
@@ -16,14 +17,14 @@ export default function Header() {
         </Link>
         
         {!jwt?.currentUser?(<div className="flex gap-6">
-          <Link href="/dashboard" className="hover:text-blue-600">
+          <Link href="/auth/signin" className="hover:text-blue-600">
             SignIn
           </Link>
-          <Link href="/settings" className="hover:text-blue-600">
+          <Link href="/auth/signup" className="hover:text-blue-600">
             SignUP
           </Link>
         </div>): <div className="flex gap-6">
-          <Link href="/dashboard" className="hover:text-blue-600">
+          <Link href="/auth/signout" className="hover:text-blue-600">
             SignOut
           </Link>
          
