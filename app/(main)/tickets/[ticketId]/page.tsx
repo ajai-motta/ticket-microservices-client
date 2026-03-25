@@ -1,15 +1,16 @@
 // app/tickets/[ticketId]/page.tsx
-import useRequest from "@/hooks/use-request";
+//import useRequest from "@/hooks/use-request";
 import axios from "axios";
-
+import PurchaseBtn from "@/components/buttons/PurchaseBtn";
 export default async function Page({
   params,
 }: {
   params: Promise<{ ticketId: string }>;
 }) {
-  
+
   const { ticketId } = await params;
-  const {doRequest,errors}=useRequest({url: '/api/orders',method:'post',body:{ticketId},onSuccess:(order)=>{console.log(order)}})
+    
+ 
   const res = await axios.get(`http://tickets-srv:3000/api/tickets/${ticketId}`);
   console.log(res.data)
   const {ticket} = res.data;
@@ -21,7 +22,7 @@ export default async function Page({
       <p>{ticket.price}</p>
 
       
-        <button onClick={doRequest}>Purchase</button>
+        <PurchaseBtn ticketId={ticketId}/>
       
     </div>
   );
