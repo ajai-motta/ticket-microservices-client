@@ -10,7 +10,7 @@ export default async function Page({
 
   const { ticketId } = await params;
     
- 
+ try{
   const res = await axios.get(`http://tickets-srv:3000/api/tickets/${ticketId}`);
   console.log(res.data)
   const {ticket} = res.data;
@@ -26,4 +26,8 @@ export default async function Page({
       
     </div>
   );
+}catch(err){
+console.log(err)
+return <div>Error</div>
+}
 }

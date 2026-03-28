@@ -24,6 +24,9 @@ export default function Header(jwt) {
             SignUP
           </Link>
         </div>): <div className="flex gap-6">
+          <Link href="/tickets" className="hover:text-blue-600">
+            tickets
+          </Link>
           <Link href="/auth/signout" className="hover:text-blue-600">
             SignOut
           </Link>

@@ -23,6 +23,7 @@ const page = () => {
       {data?.map((ticket: any) => (
         <div key={ticket.id}><Link href={`${pathname}/${ticket.id}`} >{ticket.title} {ticket.price}</Link> </div>
       ))}
+      <h4><Link href={`${pathname}/new`}>New Ticket</Link></h4>
     </div>
   )
 }

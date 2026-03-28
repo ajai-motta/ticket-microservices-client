@@ -17,6 +17,7 @@ export default function Header() {
         </Link>
         
         {!jwt?.currentUser?(<div className="flex gap-6">
+          
           <Link href="/auth/signin" className="hover:text-blue-600">
             SignIn
           </Link>
@@ -24,6 +25,9 @@ export default function Header() {
             SignUP
           </Link>
         </div>): <div className="flex gap-6">
+          <Link href="/tickets" className="hover:text-blue-600">
+            tickets
+          </Link>
           <Link href="/auth/signout" className="hover:text-blue-600">
             SignOut
           </Link>
