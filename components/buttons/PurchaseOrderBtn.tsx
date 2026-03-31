@@ -72,7 +72,9 @@ const PurchaseOrderBtn = ({orderId}) => {
       try{
         const res=await axios.post('/api/payments/verify-payment',{razorpay_order_id: response.razorpay_order_id,
       razorpay_payment_id:response.razorpay_payment_id,
-      razorpay_signature:response.razorpay_signature})
+      razorpay_signature:response.razorpay_signature,
+      orderId})
+      console.log(res)
       }catch(err){
         console.log(err)
       }

@@ -25,9 +25,7 @@ export default async function MainLayout({
       </main>
       
 
-      <footer className="border-t bg-white text-center py-4 text-sm text-gray-500">
-        © {new Date().getFullYear()} MyApp
-      </footer>
+     
     </>
   );
 }

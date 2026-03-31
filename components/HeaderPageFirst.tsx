@@ -10,30 +10,66 @@ export default function Header(jwt) {
   console.log(jwt.jwt.currentUser,'first page header Header direct acces')
   
   return (
-    <header className="border-b bg-white">
+    <header className="border-b bg-white shadow-sm sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
+        
+        {/* Logo */}
+        <Link
+          href="/"
+          className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition"
+        >
           Ticket Mystro
         </Link>
         
-        {!jwt?.jwt?.currentUser?(<div className="flex gap-6">
-          <Link href="/auth/signin" className="hover:text-blue-600">
-            SignIn
-          </Link>
-          <Link href="/auth/signup" className="hover:text-blue-600">
-            SignUP
-          </Link>
-        </div>): <div className="flex gap-6">
-          <Link href="/tickets" className="hover:text-blue-600">
-            tickets
-          </Link>
-          <Link href="/auth/signout" className="hover:text-blue-600">
-            SignOut
-          </Link>
-         
-        </div>}
+        {/* Navigation */}
+        {!jwt?.jwt?.currentUser ? (
+          <div className="flex items-center gap-4">
+            <Link
+              href="/auth/signin"
+              className="text-gray-600 hover:text-blue-600 transition font-medium"
+            >
+              SignIn
+            </Link>
+
+            <Link
+              href="/auth/signup"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium"
+            >
+              SignUP
+            </Link>
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <Link
+              href="/tickets"
+              className="text-gray-600 hover:text-blue-600 transition font-medium"
+            >
+              tickets
+            </Link>
+
+            <Link
+              href="/orders"
+              className="text-gray-600 hover:text-blue-600 transition font-medium"
+            >
+              Orders
+            </Link>
+
+            <Link
+              href="/auth/signout"
+              className="text-red-500 hover:text-red-600 transition font-medium"
+            >
+              SignOut
+            </Link>
+          </div>
+        )}
       </nav>
-      <h1>{jwt?.currentUser?.email}</h1>
+
+      {/* User email */}
+      <div className="max-w-7xl mx-auto px-6 pb-3 text-sm text-gray-500">
+        <span className="font-medium text-gray-700">
+          {jwt?.currentUser?.email}
+        </span>
+      </div>
     </header>
   );
 }
