@@ -32,7 +32,7 @@ export default async function RootLayout({
   const { data } = await buildClient(header).get('/api/users/currentuser');
 
   return (
-    <html lang="en">
+    <html lang="en" >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
       >
