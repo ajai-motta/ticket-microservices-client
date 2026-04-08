@@ -1,9 +1,10 @@
 "use client"
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import useRequest from '@/hooks/use-request'
 import Router from 'next/router'
 import { useRouter } from 'next/navigation'
 import {loadRazorpayScript} from '@/_lib/razorpay'
+import { redirect } from 'next/navigation'
 import axios from 'axios'
 interface RazorpayOptions {
   key: string | undefined;
@@ -42,6 +43,10 @@ declare global {
   }
 }
 const PurchaseOrderBtn = ({orderId}) => {
+  const [paymentStatus, setPaymentStatus] = useState<{
+  success?: boolean;
+  message?: string;
+}>({})
   const router=useRouter()
      const {doRequest,errors}=useRequest({url: '/api/payments',method:'post',body:{orderId},onSuccess:async(payment)=>{console.log(payment);
      if(payment.order.id===undefined){
@@ -75,8 +80,19 @@ const PurchaseOrderBtn = ({orderId}) => {
       razorpay_signature:response.razorpay_signature,
       orderId})
       console.log(res)
+      setPaymentStatus({
+      success: res.data.success,
+      message: res.data.message || "Payment successful"
+    });
       }catch(err){
         console.log(err)
+         setPaymentStatus({
+      success: false,
+      message: err?.response?.data?.message || "Payment verification failed"
+    });
+       setTimeout(()=>{
+        redirect(`/orders/${orderId}`)
+       },5000) 
       }
     },
    
@@ -86,6 +102,10 @@ const PurchaseOrderBtn = ({orderId}) => {
 
   rzp.on("payment.failed", (err) => {
     console.error("Payment failed:", err);
+    setPaymentStatus({
+    success: false,
+    message: "Payment failed. Try again."
+  });
   });
 
   rzp.open();
@@ -96,7 +116,25 @@ const PurchaseOrderBtn = ({orderId}) => {
      }})
   return (
     <div><button onClick={doRequest}>Purchase</button>
+    {errors?? (
+    <div
+    className={`mt-2 text-sm font-medium ${
+      paymentStatus.success ? 'text-green-600' : 'text-red-600'
+    }`}
+  >
     {errors}
+  </div>
+  )}
+    {paymentStatus.message && (
+    <div
+    className={`mt-2 text-sm font-medium ${
+      paymentStatus.success ? 'text-green-600' : 'text-red-600'
+    }`}
+  >
+    {paymentStatus.message}
+  </div>
+  )}
+
   </div>
   )
 }

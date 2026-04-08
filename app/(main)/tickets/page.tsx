@@ -26,6 +26,7 @@ const page = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
   {data?.map((ticket: any) => (
+    
     <Link key={ticket.id} href={`${pathname}/${ticket.id}`}>
       <Card className="cursor-pointer hover:shadow-lg transition-all duration-200 h-full">
         
@@ -46,7 +47,11 @@ const page = () => {
 
       </Card>
     </Link>
+    
+    
+
   ))}
+  <h4><Link href={`${pathname}/new`}>New Ticket</Link></h4>
 </div>
   )
 }
